@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<DTSConfiguration>
+<DTSConfigurationHeading>
+<DTSConfigurationFileInfo GeneratedBy="WINDOWS-TP27JOI\chris" GeneratedFromPackageName="Package" GeneratedFromPackageID="{4C9D5482-1E03-403D-99DC-501B89BC5756}" GeneratedDate="5/7/2020 1:32:21 PM"/>
+</DTSConfigurationHeading>
+<Configuration ConfiguredType="Property" Path="\Package.Connections[Employees File].Properties[ConnectionString]" ValueType="String">
+<ConfiguredValue>.\Incoming\employees.txt</ConfiguredValue>
+</Configuration>
+<Configuration ConfiguredType="Property" Path="\Package.Connections[Target Sql Server DB].Properties[ConnectionString]" ValueType="String">
+<ConfiguredValue>Data Source=.;User ID=sa;Password=All7even;Initial Catalog=Globomantics;Persist Security Info=True;Auto Translate=False;</ConfiguredValue>
+</Configuration>
+</DTSConfiguration>

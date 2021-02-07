@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<DTSConfiguration>
+	<DTSConfigurationHeading>
+		<DTSConfigurationFileInfo GeneratedBy="WINDOWS-TP27JOI\chris" GeneratedFromPackageName="Package" GeneratedFromPackageID="{4C9D5482-1E03-403D-99DC-501B89BC5756}" GeneratedDate="05-02-2021 12:20:20"/>
+	</DTSConfigurationHeading>
+	<Configuration ConfiguredType="Property" Path="\Package.Connections[Target Sql Server DB].Properties[InitialCatalog]" ValueType="String">
+		<ConfiguredValue>Globomantics2</ConfiguredValue>
+	</Configuration>
+</DTSConfiguration>

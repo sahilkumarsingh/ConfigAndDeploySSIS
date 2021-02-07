@@ -1,0 +1,11 @@
+node {
+    stage('SCM') {
+		git changelog: false, poll: false, url: 'https://github.com/FeynmanFan/configuring-ssis.git'
+    }
+    stage('Database schema upgrade') {
+        echo 'Upgrading target schema'
+    }
+    stage('Execute Package') {
+        bat label: 'Executing package', script: 'dtexec /f .\\3\\Globomantics\\Package.dtsx /SET "\"\Package.Variables[User::IncomingFilePath]\"";"\"C:\Code\Incoming\\""  /SET "\"\Package.Connections[Target_Sql_Server_DB].Properties[Password]\"";ssisConfigPassword'
+    }
+ }

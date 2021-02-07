@@ -1,0 +1,1 @@
+docker run --name testdb -d -p 1433:1433 -e sa_password=ssisConfigPassword1 -e ACCEPT_EULA=Y microsoft/mssql-server-windows-developer

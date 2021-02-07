@@ -1,0 +1,72 @@
+USE [Globomantics]
+GO
+/****** Object:  Table [dbo].[Activities]    Script Date: 5/4/2020 11:38:05 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Activities](
+	[Id] [int] NOT NULL,
+	[Title] [nvarchar](50) NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
+	[Points] [int] NOT NULL,
+ CONSTRAINT [PK_Activities] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Employees]    Script Date: 5/4/2020 11:38:06 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Employees](
+	[Id] [varchar](8) NOT NULL,
+	[FirstName] [nvarchar](50) NOT NULL,
+	[LastName] [nvarchar](50) NOT NULL,
+	[Birthday] [date] NULL,
+ CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[EmployeesActivities]    Script Date: 5/4/2020 11:38:06 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[EmployeesActivities](
+	[EmployeeID] [varchar](8) NOT NULL,
+	[ActivityId] [int] NOT NULL
+) ON [PRIMARY]
+GO
+INSERT [dbo].[Activities] ([Id], [Title], [Description], [Points]) VALUES (1, N'Daily Steps', N'...', 10)
+INSERT [dbo].[Activities] ([Id], [Title], [Description], [Points]) VALUES (2, N'Daily Meditation', N'...', 5)
+INSERT [dbo].[Activities] ([Id], [Title], [Description], [Points]) VALUES (3, N'Biometric Screening', N'...', 50)
+INSERT [dbo].[Activities] ([Id], [Title], [Description], [Points]) VALUES (4, N'Lose 10% Weight', N'...', 1000)
+ALTER TABLE [dbo].[EmployeesActivities]  WITH CHECK ADD  CONSTRAINT [FK_EmployeesActivities_Activities] FOREIGN KEY([ActivityId])
+REFERENCES [dbo].[Activities] ([Id])
+GO
+ALTER TABLE [dbo].[EmployeesActivities] CHECK CONSTRAINT [FK_EmployeesActivities_Activities]
+GO
+ALTER TABLE [dbo].[EmployeesActivities]  WITH CHECK ADD  CONSTRAINT [FK_EmployeesActivities_Employees] FOREIGN KEY([EmployeeID])
+REFERENCES [dbo].[Employees] ([Id])
+GO
+ALTER TABLE [dbo].[EmployeesActivities] CHECK CONSTRAINT [FK_EmployeesActivities_Employees]
+GO
+CREATE TABLE TEMP_Activities ([Id] varchar(4) NOT NULL,
+	[Title] [varchar](50) NOT NULL,
+	[Description] [varchar](max) NOT NULL,
+	[Points] varchar(5) NOT NULL)
+	GO
+CREATE View vw_tempActivities AS
+SELECT CONVERT(int, ID) As ID, CONVERT(nvarchar(50), Title) AS Title, CONVERT(nvarchar(max), Description) as Description, CONVERT(int, Points) as Points FROM TEMP_Activities
+GO
+CREATE PROCEDURE InsertNewActivities
+ AS
+INSERT INTO Activities (Id, Title, Description, Points)
+SELECT TA.ID, TA.Title, TA.Description, TA.Points from vw_TempActivities TA
+LEFT JOIN Activities A ON TA.Id = A.ID WHERE A.ID IS NULL
+GO

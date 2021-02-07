@@ -1,0 +1,1 @@
+dtexec /f package.dtsx /de ssisConfig /configFile staging.dtsconfig
